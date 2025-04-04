@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVIAPARK - Shopping Center</title>
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            color: white;
+        }
+        
+        /* Header styles */
+        .header-container {
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .logo-bar {
+            background-color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #000;
+        }
+        
+        .utils {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 40px;
+        }
+        
+        .utils a {
+            margin-left: 10px;
+            color: #000;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 5px 10px;
+        }
+        
+        .btn {
+            border: 1px solid #333;
+            border-radius: 3px;
+            padding: 5px 15px;
+        }
+        
+        nav {
+            background-color: #222;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* Modified navbar styles to center items */
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0 auto; /* Center the ul element */
+        }
+        
+        nav ul li {
+            margin: 0 12px; /* Equal spacing on both sides */
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-box input {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+        }
+        
+        .search-box button {
+            margin-left: 5px;
+            background: #e066ff;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        /* Main container */
+        .main-container {
+            display: flex;
+            padding-top: 110px;
+            height: 100vh;
+        }
+        
+        /* Hero section */
+        .hero {
+            width: 70%;
+            height: calc(100vh - 110px);
+            background-image: linear-gradient(rgba(82, 45, 128, 0.8), rgba(191, 64, 191, 0.8)), 
+                              url('cityscape-silhouette.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 60px;  /* Adjusted padding to match reference image */
+            padding-right: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Adding decorative elements to the hero background */
+        .sky-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(255, 165, 0, 0.3), transparent 50%);
+            z-index: 1;
+        }
+        
+        .buildings {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background-image: url('buildings-silhouette.png');
+            background-size: contain;
+            background-position: bottom center;
+            background-repeat: repeat-x;
+            z-index: 2;
+        }
+        
+        .tent {
+            position: absolute;
+            bottom: 10%;
+            right: 15%;  /* Adjusted to match reference image */
+            width: 150px;
+            height: 150px;
+            background-image: url('tent.png');
+            background-size: contain;
+            background-position: bottom right;
+            background-repeat: no-repeat;
+            z-index: 3;
+            filter: brightness(1.5);  /* Make tent more visible like in reference */
+        }
+        
+        .leaves {
+            position: absolute;
+            top: 20%;  /* Adjusted to match reference image */
+            right: 10%;  /* Moved to right side like in reference */
+            width: 100px;
+            height: 100px;
+            background-image: url('leaves.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            padding: 30px 0;  /* Added vertical padding */
+            margin-left: 40px;  /* Added margin to match reference */
+        }
+        
+        .hero h1 {
+            font-size: 36px;  /* Adjusted size to match reference */
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #FFD700;  /* Golden color like reference */
+        }
+        
+        .hero h2 {
+            font-size: 24px;  /* Adjusted size */
+            font-weight: normal;
+            text-transform: uppercase;
+            color: #FFD700;  /* Golden color like reference */
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            font-size: 16px;
+            margin-top: 20px;
+            max-width: 400px;
+        }
+        
+        .circle-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+        
+        /* Right section */
+        .right-section {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 110px);
+        }
+        
+        /* Info tiles grid - top section */
+        .info-grid-top {
+            display: flex;
+            height: 50%;
+        }
+        
+        /* Info tiles grid - bottom section */
+        .info-grid-bottom {
+            display: flex;
+            height: 50%;
+        }
+        
+        .column {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tile {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 30px 20px;  /* Increased padding to match reference */
+            flex: 1;
+            text-align: center;
+        }
+        
+        .tile-pink {
+            background-color: #ff8dc7;  /* Lighter pink as in reference */
+        }
+        
+        .tile-light-pink {
+            background-color: #e066ff;  /* Adjusted to match reference */
+        }
+        
+        .tile-yellow {
+            background-color: #ffd700;
+        }
+        
+        .tile-blue {
+            background-color: #4169e1;
+        }
+        
+        .tile-green {
+            background-color: #ffffff;  /* White like in reference */
+            color: #000;  /* Black text for white background */
+        }
+        
+        .tile-orange {
+            background-color: #6a5acd;  /* Purple like in reference */
+        }
+        
+        .tile-number {
+            font-size: 60px;  /* Increased size to match reference */
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tile-text {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Added Moscow Escape logo/text */
+        .brand-logo {
+            position: absolute;
+            left: 60px;
+            top: 60px;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .logo-text {
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 5px;
+            color: white;
+        }
+        
+        .logo-subtext {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Added Book Now button */
+        .book-button {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            padding: 8px 30px;
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-top: 20px;
+            text-decoration: none;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <div class="logo-bar">
+            <div class="logo">AVIAPARK</div>
+            <div class="utils">
+                <a href="#">EN</a>
+                <a href="#" class="btn">Login</a>
+                <a href="#" class="btn">Contact</a>
+                <a href="#">Menu</a>
+            </div>
+        </div>
+        <nav>
+            <div class="search-box">
+                <input type="text" placeholder="Search...">
+                <button>Search</button>
+            </div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shops</a></li>
+                <li><a href="#">Entertainment</a></li>
+                <li><a href="#">Food</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Map</a></li>
+            </ul>
+            <div style="width: 160px;"></div> <!-- This empty div balances the search box width -->
+        </nav>
+    </div>
+    
+    <div class="main-container">
+        <section class="hero">
+            <!-- Decorative background elements -->
+            <div class="sky-overlay"></div>
+            <div class="buildings"></div>
+            <div class="tent"></div>
+            <div class="leaves"></div>
+            
+            <!-- Logo/Brand section -->
+            <div class="brand-logo">
+                <div style="width: 60px; height: 60px; background-color: #FFD700; display: flex; justify-content: center; align-items: center;">
+                    <span style="font-size: 24px;">M</span>
+                </div>
+                <div class="logo-text">MOSCOW</div>
+                <div class="logo-text">ESCAPE</div>
+                <div class="logo-subtext">WEEKEND ADVENTURE</div>
+            </div>
+            
+            <!-- Main content -->
+            <div class="hero-content">
+                <h1>TENTS IN THE CITY</h1>
+                <h2>GLAMPING OPENING</h2>
+                <p>18.00</p>
+                <a href="#" class="book-button">BOOK NOW</a>
+                <div class="circle-button">↓</div>
+            </div>
+        </section>
+        
+        <div class="right-section">
+            <section class="info-grid-top">
+                <div class="column">
+                    <div class="tile tile-pink">
+                        <div class="tile-number">345</div>
+                        <div class="tile-text">shops</div>
+                    </div>
+                    <div class="tile tile-yellow">
+                        <div class="tile-number">33</div>
+                        <div class="tile-text">entertainment</div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="tile tile-light-pink">
+                        <div class="tile-number">65</div>
+                        <div class="tile-text">restaurants</div>
+                    </div>
+                    <div class="tile tile-blue">
+                        <div class="tile-text">KIDS</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="info-grid-bottom">
+                <div class="tile tile-green">
+                    <div class="tile-text">ACTIONS</div>
+                </div>
+                <div class="tile tile-orange">
+                    <div class="tile-text">PHOTO</div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

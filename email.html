@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Validator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">
+        How to Validate Email Address in JavaScript
+    </h1>
+    
+    <div class="bg-white rounded-lg shadow-md w-full max-w-md mb-4">
+        <div class="p-6">
+            <form id="emailForm">
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-bold text-gray-800 mb-2">
+                        Enter Your Email
+                    </label>
+                    <div class="relative">
+                        <input
+                            type="text"
+                            id="email"
+                            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="name@provider.com"
+                        />
+                        <span id="validIcon" class="hidden absolute right-3 top-2.5 text-green-500">✓</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-start">
+                    <button
+                        type="submit"
+                        class="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition-colors"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
+
+            <div id="successMessage" class="hidden mt-4 p-3 rounded-md flex items-center gap-2 bg-green-50">
+                <span class="text-green-500">✓</span>
+                <span class="text-green-700">Valid email address!</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorMessage" class="hidden bg-white rounded-lg shadow-md w-full max-w-md p-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div>
+                    <h2 class="text-lg font-semibold text-red-700">Invalid Email</h2>
+                    <p class="text-gray-600">Provided email address is invalid!</p>
+                </div>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <span class="text-red-500 text-2xl">✕</span>
+                <button
+                    id="okButton"
+                    class="bg-blue-500 text-white px-6 py-1 rounded hover:bg-blue-600 transition-colors"
+                >
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('emailForm');
+            const email = document.getElementById('email');
+            const validIcon = document.getElementById('validIcon');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const okButton = document.getElementById('okButton');
+
+            function validateEmail(email) {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const isValid = validateEmail(email.value);
+                
+                validIcon.classList.toggle('hidden', !isValid);
+                successMessage.classList.toggle('hidden', !isValid);
+                errorMessage.classList.toggle('hidden', isValid);
+            });
+
+            okButton.addEventListener('click', function() {
+                errorMessage.classList.add('hidden');
+            });
+
+            email.addEventListener('input', function() {
+                validIcon.classList.add('hidden');
+                successMessage.classList.add('hidden');
+                errorMessage.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
